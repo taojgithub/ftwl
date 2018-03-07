@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ftwl.ltp.dao.base.PermissionBaseDao">
+    <resultMap id="baseResultMap" type="com.ftwl.ltp.model.entity.Permission">
+        <id column="ID" property="id" />
+            <result column="PID" property="pid"/>
+            <result column="MENU_NAME" property="menuName"/>
+            <result column="URL" property="url"/>
+            <result column="CREATE_USER" property="createUser"/>
+            <result column="CREATE_TIME" property="createTime"/>
+            <result column="UPDATE_USER" property="updateUser"/>
+            <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+    <sql id="baseColumnList">
+    ID,PID,MENU_NAME,URL,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME
+    </sql>
+    <select id="get" parameterType="java.lang.String" resultMap="baseResultMap">
+        select <include refid="baseColumnList"/>
+        from ltp_permission
+        where ID = #{id}
+    </select>
+    <delete id="delete" parameterType="java.util.Collection">
+        delete from ltp_permission
+        where 1=1 and ID in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+        #{item}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.ftwl.ltp.model.entity.Permission">
+        insert into ltp_permission (
+    ID,
+    PID,
+    MENU_NAME,
+    URL,
+    CREATE_USER,
+    CREATE_TIME,
+    UPDATE_USER,
+    UPDATE_TIME
+        )
+        values (
+    #{id, jdbcType=VARCHAR},
+    #{pid, jdbcType=VARCHAR},
+    #{menuName, jdbcType=VARCHAR},
+    #{url, jdbcType=VARCHAR},
+    #{createUser, jdbcType=VARCHAR},
+    #{createTime, jdbcType=TIMESTAMP},
+    #{updateUser, jdbcType=VARCHAR},
+    #{updateTime, jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ftwl.ltp.model.entity.Permission">
+        insert into ltp_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            ID,
+            </if>
+            <if test="pid != null">
+            PID,
+            </if>
+            <if test="menuName != null">
+            MENU_NAME,
+            </if>
+            <if test="url != null">
+            URL,
+            </if>
+            <if test="createUser != null">
+            CREATE_USER,
+            </if>
+            <if test="createTime != null">
+            CREATE_TIME,
+            </if>
+            <if test="updateUser != null">
+            UPDATE_USER,
+            </if>
+            <if test="updateTime != null">
+            UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id, jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+            #{pid, jdbcType=VARCHAR},
+            </if>
+            <if test="menuName != null">
+            #{menuName, jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+            #{url, jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+            #{createUser, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+            #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+            #{updateUser, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+            #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into ltp_permission (ID,PID,MENU_NAME,URL,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.pid, jdbcType=VARCHAR},
+        #{item.menuName, jdbcType=VARCHAR},
+        #{item.url, jdbcType=VARCHAR},
+        #{item.createUser, jdbcType=VARCHAR},
+        #{item.createTime, jdbcType=TIMESTAMP},
+        #{item.updateUser, jdbcType=VARCHAR},
+        #{item.updateTime, jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+    <update id="update" parameterType="com.ftwl.ltp.model.entity.Permission">
+        update ltp_permission
+        <set>
+            PID = #{pid, jdbcType=VARCHAR},
+            MENU_NAME = #{menuName, jdbcType=VARCHAR},
+            URL = #{url, jdbcType=VARCHAR},
+            CREATE_USER = #{createUser, jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser, jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+        </set>
+        where ID = #{id}
+    </update>
+    <update id="updateSelective" parameterType="com.ftwl.ltp.model.entity.Permission">
+        update ltp_permission
+        <set>
+                <if test="pid != null">
+                PID = #{pid, jdbcType=VARCHAR},
+                </if>
+                <if test="menuName != null">
+                MENU_NAME = #{menuName, jdbcType=VARCHAR},
+                </if>
+                <if test="url != null">
+                URL = #{url, jdbcType=VARCHAR},
+                </if>
+                <if test="createUser != null">
+                CREATE_USER = #{createUser, jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                UPDATE_USER = #{updateUser, jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+                </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        insert into ltp_permission (ID,PID,MENU_NAME,URL,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.pid, jdbcType=VARCHAR},
+        #{item.menuName, jdbcType=VARCHAR},
+        #{item.url, jdbcType=VARCHAR},
+        #{item.createUser, jdbcType=VARCHAR},
+        #{item.createTime, jdbcType=TIMESTAMP},
+        #{item.updateUser, jdbcType=VARCHAR},
+        #{item.updateTime, jdbcType=TIMESTAMP}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        ID = IF(ID = VALUES(ID),ID,NULL)
+            ,PID = VALUES(PID)
+            ,MENU_NAME = VALUES(MENU_NAME)
+            ,URL = VALUES(URL)
+            ,CREATE_USER = VALUES(CREATE_USER)
+            ,CREATE_TIME = VALUES(CREATE_TIME)
+            ,UPDATE_USER = VALUES(UPDATE_USER)
+            ,UPDATE_TIME = VALUES(UPDATE_TIME)
+    </update>
+    <select id="listByEntity" parameterType="com.ftwl.ltp.model.entity.Permission" resultMap="baseResultMap">
+        select <include refid="baseColumnList"/>
+        from ltp_permission
+        where 1=1
+            <if test="pid != null">
+                AND PID = #{pid}
+            </if>
+            <if test="menuName != null">
+                AND MENU_NAME = #{menuName}
+            </if>
+            <if test="url != null">
+                AND URL = #{url}
+            </if>
+            <if test="createUser != null">
+                AND CREATE_USER = #{createUser}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateUser != null">
+                AND UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
+    </select>
+    <update id="updateField">
+        update ltp_permission
+        <set>
+                <if test="param2.pid">
+                PID = #{param1.pid, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.menuName">
+                MENU_NAME = #{param1.menuName, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.url">
+                URL = #{param1.url, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.updateUser">
+                UPDATE_USER = #{param1.updateUser, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.updateTime">
+                UPDATE_TIME = #{param1.updateTime, jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where ID = #{param1.id}
+    </update>
+</mapper>

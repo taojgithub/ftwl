@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ftwl.ltp.dao.OrderDao">
+    <resultMap id="baseResultMap" extends="com.ftwl.ltp.dao.base.OrderBaseDao.baseResultMap" type="com.ftwl.ltp.model.entity.Order"></resultMap>
+    <sql id="baseColumnList">
+        <include refid="com.ftwl.ltp.dao.base.OrderBaseDao.baseColumnList" />
+    </sql>
+    
+    <select id="listOrder" resultMap="baseResultMap">
+        select * from ltp_order WHERE name LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+</mapper>

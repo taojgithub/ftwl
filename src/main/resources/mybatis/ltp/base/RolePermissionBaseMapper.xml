@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ftwl.ltp.dao.base.RolePermissionBaseDao">
+    <resultMap id="baseResultMap" type="com.ftwl.ltp.model.entity.RolePermission">
+        <id column="ID" property="id" />
+            <result column="CREATE_USER" property="createUser"/>
+            <result column="CRETAE_TIME" property="cretaeTime"/>
+            <result column="UPDATE_USER" property="updateUser"/>
+            <result column="UPDATE_TIME" property="updateTime"/>
+            <result column="ROLE_ID" property="roleId"/>
+            <result column="PERMISSION_ID" property="permissionId"/>
+    </resultMap>
+    <sql id="baseColumnList">
+    ID,CREATE_USER,CRETAE_TIME,UPDATE_USER,UPDATE_TIME,ROLE_ID,PERMISSION_ID
+    </sql>
+    <select id="get" parameterType="java.lang.String" resultMap="baseResultMap">
+        select <include refid="baseColumnList"/>
+        from ltp_role_permission
+        where ID = #{id}
+    </select>
+    <delete id="delete" parameterType="java.util.Collection">
+        delete from ltp_role_permission
+        where 1=1 and ID in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+        #{item}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.ftwl.ltp.model.entity.RolePermission">
+        insert into ltp_role_permission (
+    ID,
+    CREATE_USER,
+    CRETAE_TIME,
+    UPDATE_USER,
+    UPDATE_TIME,
+    ROLE_ID,
+    PERMISSION_ID
+        )
+        values (
+    #{id, jdbcType=VARCHAR},
+    #{createUser, jdbcType=VARCHAR},
+    #{cretaeTime, jdbcType=TIMESTAMP},
+    #{updateUser, jdbcType=VARCHAR},
+    #{updateTime, jdbcType=TIMESTAMP},
+    #{roleId, jdbcType=VARCHAR},
+    #{permissionId, jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ftwl.ltp.model.entity.RolePermission">
+        insert into ltp_role_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            ID,
+            </if>
+            <if test="createUser != null">
+            CREATE_USER,
+            </if>
+            <if test="cretaeTime != null">
+            CRETAE_TIME,
+            </if>
+            <if test="updateUser != null">
+            UPDATE_USER,
+            </if>
+            <if test="updateTime != null">
+            UPDATE_TIME,
+            </if>
+            <if test="roleId != null">
+            ROLE_ID,
+            </if>
+            <if test="permissionId != null">
+            PERMISSION_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id, jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+            #{createUser, jdbcType=VARCHAR},
+            </if>
+            <if test="cretaeTime != null">
+            #{cretaeTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+            #{updateUser, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+            #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="roleId != null">
+            #{roleId, jdbcType=VARCHAR},
+            </if>
+            <if test="permissionId != null">
+            #{permissionId, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into ltp_role_permission (ID,CREATE_USER,CRETAE_TIME,UPDATE_USER,UPDATE_TIME,ROLE_ID,PERMISSION_ID
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.createUser, jdbcType=VARCHAR},
+        #{item.cretaeTime, jdbcType=TIMESTAMP},
+        #{item.updateUser, jdbcType=VARCHAR},
+        #{item.updateTime, jdbcType=TIMESTAMP},
+        #{item.roleId, jdbcType=VARCHAR},
+        #{item.permissionId, jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="update" parameterType="com.ftwl.ltp.model.entity.RolePermission">
+        update ltp_role_permission
+        <set>
+            CREATE_USER = #{createUser, jdbcType=VARCHAR},
+            CRETAE_TIME = #{cretaeTime, jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser, jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+            ROLE_ID = #{roleId, jdbcType=VARCHAR},
+            PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+        </set>
+        where ID = #{id}
+    </update>
+    <update id="updateSelective" parameterType="com.ftwl.ltp.model.entity.RolePermission">
+        update ltp_role_permission
+        <set>
+                <if test="createUser != null">
+                CREATE_USER = #{createUser, jdbcType=VARCHAR},
+                </if>
+                <if test="cretaeTime != null">
+                CRETAE_TIME = #{cretaeTime, jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                UPDATE_USER = #{updateUser, jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+                </if>
+                <if test="roleId != null">
+                ROLE_ID = #{roleId, jdbcType=VARCHAR},
+                </if>
+                <if test="permissionId != null">
+                PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+                </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        insert into ltp_role_permission (ID,CREATE_USER,CRETAE_TIME,UPDATE_USER,UPDATE_TIME,ROLE_ID,PERMISSION_ID
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+        #{item.id, jdbcType=VARCHAR},
+        #{item.createUser, jdbcType=VARCHAR},
+        #{item.cretaeTime, jdbcType=TIMESTAMP},
+        #{item.updateUser, jdbcType=VARCHAR},
+        #{item.updateTime, jdbcType=TIMESTAMP},
+        #{item.roleId, jdbcType=VARCHAR},
+        #{item.permissionId, jdbcType=VARCHAR}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        ID = IF(ID = VALUES(ID),ID,NULL)
+            ,CREATE_USER = VALUES(CREATE_USER)
+            ,CRETAE_TIME = VALUES(CRETAE_TIME)
+            ,UPDATE_USER = VALUES(UPDATE_USER)
+            ,UPDATE_TIME = VALUES(UPDATE_TIME)
+            ,ROLE_ID = VALUES(ROLE_ID)
+            ,PERMISSION_ID = VALUES(PERMISSION_ID)
+    </update>
+    <select id="listByEntity" parameterType="com.ftwl.ltp.model.entity.RolePermission" resultMap="baseResultMap">
+        select <include refid="baseColumnList"/>
+        from ltp_role_permission
+        where 1=1
+            <if test="createUser != null">
+                AND CREATE_USER = #{createUser}
+            </if>
+            <if test="cretaeTime != null">
+                AND CRETAE_TIME = #{cretaeTime}
+            </if>
+            <if test="updateUser != null">
+                AND UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
+            <if test="roleId != null">
+                AND ROLE_ID = #{roleId}
+            </if>
+            <if test="permissionId != null">
+                AND PERMISSION_ID = #{permissionId}
+            </if>
+    </select>
+    <update id="updateField">
+        update ltp_role_permission
+        <set>
+                <if test="param2.cretaeTime">
+                CRETAE_TIME = #{param1.cretaeTime, jdbcType=TIMESTAMP},
+                </if>
+                <if test="param2.updateUser">
+                UPDATE_USER = #{param1.updateUser, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.updateTime">
+                UPDATE_TIME = #{param1.updateTime, jdbcType=TIMESTAMP},
+                </if>
+                <if test="param2.roleId">
+                ROLE_ID = #{param1.roleId, jdbcType=VARCHAR},
+                </if>
+                <if test="param2.permissionId">
+                PERMISSION_ID = #{param1.permissionId, jdbcType=VARCHAR},
+                </if>
+        </set>
+        where ID = #{param1.id}
+    </update>
+</mapper>

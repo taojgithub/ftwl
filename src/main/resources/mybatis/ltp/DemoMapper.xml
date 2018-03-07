@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ftwl.ltp.dao.DemoDao">
+    <resultMap id="baseResultMap" extends="com.ftwl.ltp.dao.base.DemoBaseDao.baseResultMap"
+               type="com.ftwl.ltp.model.entity.Demo"></resultMap>
+    <sql id="baseColumnList">
+        <include refid="com.ftwl.ltp.dao.base.DemoBaseDao.baseColumnList"/>
+    </sql>
+
+    <select id="listByCode" resultMap="baseResultMap">
+          select xx_code as xxCode from ltp_demo where code =#{code}
+    </select>
+
+
+</mapper>

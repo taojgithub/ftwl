@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//W3C//DTD HTML 4.01//en"
+        "https://gitee.com/ad_earn/dtd/raw/master/tramp-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <tables>
+        <!--数据库表，name:数据库中的表名， requestBasePath:请求路径，出现在freeMarker同名属性中，可用于controllermethods:方法名（如:getById,insert,delete,insertSelective,update,updateSelective），英文逗号隔开，以List集合形式出现在freeMarker同名属性中 prefix：表前缀,声明后不会出现在文件名中 module:模块 overwrite:是否覆盖代码，默认false-->
+        <!--<table name="ci_template" module="template" prefix="ci_" overwrite="true"/>-->
+        <!--<table name="ci_template_business" module="template" prefix="ci_" overwrite="true"/>-->
+        <!--<table name="ltp_demo" module="ltp" requestBasePath="demo" prefix="ltp_" overwrite="true"/>-->
+        <!--<table name="ltp_order" module="ltp" requestBasePath="order" prefix="ltp_" overwrite="true"/>-->
+        <table name="ltp_user" module="ltp" requestBasePath="user" prefix="ltp_" overwrite="true"/>
+        <table name="ltp_role" module="ltp" requestBasePath="role" prefix="ltp_" overwrite="true"/>
+        <table name="ltp_permission" module="ltp" requestBasePath="permission" prefix="ltp_" overwrite="true"/>
+        <table name="ltp_user_role" module="ltp" requestBasePath="userRole" prefix="ltp_" overwrite="true"/>
+        <!--<table name="ltp_role_permission" module="ltp" requestBasePath="rolePermission" prefix="ltp_" overwrite="true"/>-->
+    </tables>
+    <templates path="mbg/templates">
+        <!--模板，name：模板名称(生成的文件名称规则：名称=类名+模板名称,再去除 .ftl后缀) tootPath:根目录(如：resources，java),path:模板生成的文件所要存放的路径,其中${module}的值为table标签module属性对应的值-->
+        <template name="BaseMapper.xml.ftl" rootPath="resources" path="mybatis.${module}.base" overwrite="true"/>
+        <template name="#.java.ftl" rootPath="java" path="com.ftwl.${module}.model.entity" overwrite="true"/>
+        <template name="Field.java.ftl" rootPath="java" path="com.ftwl.${module}.model.field" overwrite="true"/>
+        <template name="BaseDao.java.ftl" rootPath="java" path="com.ftwl.${module}.dao.base" overwrite="true"/>
+        <template name="Mapper.xml.ftl" rootPath="resources" path="mybatis.${module}"/>
+        <template name="Dao.java.ftl" rootPath="java" path="com.ftwl.${module}.dao"/>
+        <template name="Service.java.ftl" rootPath="java" path="com.ftwl.${module}.service"/>
+        <template name="Controller.java.ftl" rootPath="java" path="com.ftwl.${module}.controller"/>
+    </templates>
+    <info author="autoCoder" remark="autoCoder生成"/>
+    <!--目前只支持mysql-->
+    <dataSource url="jdbc:mysql://127.0.0.1:3306" db="ftwl_ltp" user="root" password="123456"
+                driverClassName="com.mysql.jdbc.Driver"/>
+</generatorConfiguration>

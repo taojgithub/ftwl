@@ -1,0 +1,27 @@
+server:
+  port: 9001
+spring:
+  datasource:
+    name: ftwl_ltp
+    url: jdbc:mysql://127.0.0.1:3306/ftwl_ltp?characterEncoding=utf8&useSSL=true
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver     
+    filters: stat
+    maxActive: 20
+    initialSize: 5
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+debug: true
+
+
+
