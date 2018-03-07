@@ -36,6 +36,7 @@ public class DemoController extends BaseController {
      */
     @RequestMapping("add")
     public AjaxResult<Demo> add(@RequestBody Demo entity) {
+        System.out.println("Hello World!");
         entity.setCode(SerialNumberServiceUtil.getSerialNumber(LtpSerialNumberPrefixEnum.DEMO));
         demoService.insert(entity);
         return successResult(entity);
